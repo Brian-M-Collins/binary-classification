@@ -3,15 +3,9 @@ from datasets import load_dataset
 import awswrangler as wr
 
 # %%
-training_data = wr.s3.read_csv("s3://wileyintsoljupyterhub/bluebird/bcollins/balanced_training_set.csv").drop('Unnamed: 0', axis=1)
-testing_data = wr.s3.read_csv("s3://wileyintsoljupyterhub/bluebird/bcollins/balanced_test_set.csv").drop('Unnamed: 0', axis=1)
-validation_data = wr.s3.read_csv("s3://wileyintsoljupyterhub/bluebird/bcollins/balanced_validation_set.csv").drop('Unnamed: 0', axis=1)
-
-# %%
 data_files = {
-    "train":"/workspaces/bluebird/notebooks/brian/generic_review_detection/data/balanced_training_set.csv", 
-    "test":"/workspaces/bluebird/notebooks/brian/generic_review_detection/data/balanced_test_set.csv", 
-    "validation":"/workspaces/bluebird/notebooks/brian/generic_review_detection/data/balanced_validation_set.csv"
+    "train":"./balanced_training_set.csv", 
+    "test":"./balanced_test_set.csv", 
 }
 dataset = load_dataset('csv', data_files=data_files).remove_columns('Unnamed: 0')
 
