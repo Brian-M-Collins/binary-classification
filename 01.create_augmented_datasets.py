@@ -13,7 +13,7 @@ from notebooks.brian.generic_review_detection.src.data_utils import (
 
 # %%
 data = wr.s3.read_csv(
-    "s3://wileyintsoljupyterhub/bluebird/bcollins/cleaned_review_comments.csv"
+    "s3://*.csv"
 )
 data["label"] = data["label"].apply(lambda x: (1 if x is True else 0))
 
@@ -31,13 +31,13 @@ train = pd.concat(
 )
 
 # %%
-wr.s3.to_csv(train, path="s3://wileyintsoljupyterhub/bluebird/bcollins/clean_data/original_training_set.csv")
+wr.s3.to_csv(train, path="s3://*.csv")
 
 # %%
 unbalanced_df = undersample_majority(train, 0.30)
 
 # %%
-wr.s3.to_csv(unbalanced_df, path="s3://wileyintsoljupyterhub/bluebird/bcollins/clean_data/undersampled_training_set.csv")
+wr.s3.to_csv(unbalanced_df, path="s3://*.csv")
 
 
 # %%
@@ -55,5 +55,5 @@ balanced_df = augment_text(unbalanced_df, aug10p, 8, 3)
 test_df = pd.concat([pd.DataFrame(test_text), pd.DataFrame(test_labels)], axis=1)
 
 # %%
-wr.s3.to_csv(balanced_df, path="s3://wileyintsoljupyterhub/bluebird/bcollins/clean_data/balanced_training_set.csv")
-wr.s3.to_csv(test_df, path="s3://wileyintsoljupyterhub/bluebird/bcollins/clean_data/test_set.csv")
+wr.s3.to_csv(balanced_df, path="s3://*.csv")
+wr.s3.to_csv(test_df, path="s3://*.csv")
